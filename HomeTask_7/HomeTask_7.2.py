@@ -52,10 +52,9 @@ class Car:
 
 
 class ShowRoom(Car):
-    def __init__(self, addres, name): #, list_cars=_cars):
+    def __init__(self, addres, name):
         self.addres = addres
         self.name = name
-        #self.list_cars = list_cars
 
     def add_car(self, car):
         self.car = car
@@ -74,7 +73,6 @@ class ShowRoom(Car):
         return str(self)
 
     def __str__(self):
-#        return 'adress: {}\nname: {}\nlist_of_cars: {}\n'.format(self.addres, self.name, print(*_cars, sep='\n'))
         return 'adress: {}\nname: {}\n'.format(self.addres, self.name)
 
     def show_all(self):
