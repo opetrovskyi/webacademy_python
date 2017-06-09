@@ -35,7 +35,6 @@
 # price: $18000
 #
 
-_cars = []
 
 class Car:
     def __init__(self, model, color, year, price):
@@ -51,20 +50,21 @@ class Car:
         return str(self)
 
 
-class ShowRoom(Car):
+class ShowRoom:
     def __init__(self, addres, name):
         self.addres = addres
         self.name = name
+        self._cars = []
 
     def add_car(self, car):
         self.car = car
-        _cars.append(car)
+        self._cars.append(car)
         return print("Done")
 
     def sell_car(self, car):
         self.car = car
-        if car in _cars:
-            _cars.remove(car)
+        if car in self._cars:
+            self._cars.remove(car)
             return 'Car has been sold!'
         else:
             return 'No such car!'
@@ -76,20 +76,25 @@ class ShowRoom(Car):
         return 'adress: {}\nname: {}\n'.format(self.addres, self.name)
 
     def show_all(self):
-        return print(*_cars, sep='\n')
+        return print(*self._cars, sep='\n')
 
 car1 = Car('Audi', 'Red', '1999', '$12000')
 car2 = Car('BMW', 'Black', '2009', '$18000')
 car3 = Car('Volvo', 'Black', '1199', '$1800000')
 showroom = ShowRoom('Borshagovska 17', 'Volkswagen showroom')
+showroom2 = ShowRoom('Lala str 17', 'Popovoz showroom')
+showroom2.add_car(car1)
+showroom2.add_car(car2)
+
 showroom.add_car(car1)
-showroom.add_car(car2)
 showroom.add_car(car3)
 
 
 
 print('*' * 55)
 print(showroom.show_all())
+print('*' * 88)
+print(showroom2.show_all())
 print('*' * 88)
 print(showroom.sell_car(car1))
 print('*' * 55)
@@ -98,5 +103,9 @@ print('*' * 88)
 print(showroom)
 print('*' * 55)
 showroom.show_all()
+print('*' * 88)
+print(showroom2)
+print('*' * 88)
+showroom2.show_all()
 
 
