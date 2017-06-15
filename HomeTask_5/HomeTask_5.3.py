@@ -11,7 +11,6 @@ def gen_list(a):
     return lst
 
 b=gen_list(10)
-#print(b)
 c=gen_list(10)
 d=gen_list(10)
 
