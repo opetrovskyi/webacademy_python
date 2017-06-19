@@ -1,7 +1,8 @@
-from AWS_main import *
+from AwsMain import *
 import boto3
 
-class AWSec2(AWS_main):
+
+class AWSec2(AwsMain):
     def __init__(self, profile_name):
         super().__init__(profile_name)
         self.ec2 = boto3.Session(profile_name=self.profile_name).resource('ec2')

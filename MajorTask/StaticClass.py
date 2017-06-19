@@ -1,12 +1,10 @@
 import jinja2
 
+
 class StaticFiles:
-    def __init__(self, loc_list, template_file=None):
+    def __init__(self, loc_list, template_file="templates/env.html"):
         self.loc_list = loc_list
-        if template_file == None:
-            self.template_file = "templates/env.html"
-        else:
-            self.template_file = template_file
+        self.template_file = template_file
 
     def template_env_file(self):
         templateLoader = jinja2.FileSystemLoader(searchpath="./")

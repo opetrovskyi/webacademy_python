@@ -17,3 +17,6 @@ website_conf = {
         'Suffix': 'index.html'
     }
 }
+
+my_dict = {}
+my_bucket_name = 'perfcycle-ip-statistic-html'

@@ -1,11 +1,11 @@
 import boto3
 import json
-from AWS_main import *
+from AwsMain import *
 from AWSec2 import *
 from StaticClass import StaticFiles
 
 
-class AWSs3(AWS_main):
+class AWSs3(AwsMain):
     def __init__(self, profile_name, bucket_name):
         super().__init__(profile_name)
         self.bucket_name = bucket_name
@@ -26,19 +26,17 @@ class AWSs3(AWS_main):
         bucket_website.put(WebsiteConfiguration=website_conf)
 
     def delete_index(self):
-        try:
-            self.connect.delete_object(Bucket=self.bucket_name, Key='index.html')
-        except ZeroDivisionError:
-            pass
+        self.connect.delete_object(Bucket=self.bucket_name, Key='index.html')
+
 
     def upload_index(self, text):
         self.text = text
         self.connect.put_object(Bucket=self.bucket_name, Key='index.html', Body=text, ContentType='text/html')
         print('created index.html file, url = http://{}.s3-website-us-east-1.amazonaws.com/index.html'.format(self.bucket_name))
 
-    def s3_env_files(self, dict):
-        self.dict = dict
-        for k, v in self.dict.items():
+    def s3_env_files(self, my_dict):
+        self.my_dict = my_dict
+        for k, v in self.my_dict.items():
             a = StaticFiles(v).template_env_file()
             filename = '{}.html'.format(k)
             self.connect.put_object(Bucket=self.bucket_name, Key=filename, Body=a, ContentType='text/html')
@@ -47,11 +45,11 @@ class AWSs3(AWS_main):
     def refresh_s3_env_files(self):
         ec22 = AWSec2('webapc')
         environments2 = ec22.all_envs_tags()
-        dict = {}
+        my_dict = {}
         for i in environments2:
-            dict[i] = ec22.get_env(i)
+            my_dict[i] = ec22.get_env(i)
         s33 = AWSs3('webapc', self.bucket_name)
-        s33.s3_env_files(dict)
+        s33.s3_env_files(my_dict)
         return 'Refreshed <br>  <a href="/" title="Go HOME">Go Home</a>'
 
     def __repr__(self):
